@@ -30,8 +30,9 @@ vpsair-fast
 │  ├─app API接口模块(APP调用)
 │  ├─job 定时任务模块
 │  ├─oss 文件服务模块
+│  ├─pan 巨硬网盘
 │  └─sys 权限模块
-│ 
+│  
 ├─AirApplication 项目启动类
 │  
 ├──resources 
