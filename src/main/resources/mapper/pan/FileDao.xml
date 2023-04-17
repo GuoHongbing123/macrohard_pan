@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vpsair.modules.pan.dao.FileDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vpsair.modules.pan.entity.FileEntity" id="fileMap">
+        <result property="id" column="id"/>
+        <result property="foreignId" column="foreign_id"/>
+        <result property="folderId" column="folder_id"/>
+        <result property="realName" column="real_name"/>
+        <result property="fullPath" column="full_path"/>
+        <result property="realPath" column="real_path"/>
+        <result property="size" column="size"/>
+        <result property="suffix" column="suffix"/>
+        <result property="sort" column="sort"/>
+        <result property="shardIndex" column="shard_index"/>
+        <result property="shardSize" column="shard_size"/>
+        <result property="shardTotal" column="shard_total"/>
+        <result property="thumb" column="thumb"/>
+        <result property="fileKey" column="file_key"/>
+        <result property="ownerId" column="owner_id"/>
+        <result property="ownerName" column="owner_name"/>
+        <result property="ownerType" column="owner_type"/>
+        <result property="share" column="share"/>
+        <result property="shareId" column="share_id"/>
+        <result property="type" column="type"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <update id="renameFile">
+        update pan_file set real_name=#{realName} where id=#{id} and owner_id=#{panUserId} and status=1
+    </update>
+    <update id="moveFile">
+        update pan_file set folder_id=#{folderId} where id=#{id} and owner_id=#{panUserId} and status=1
+    </update>
+    <select id="findByShareFid" resultType="com.vpsair.modules.pan.dto.FileDTO">
+        select id,folder_id,real_name,`size`,suffix,owner_name,`type`,remark,update_time from pan_file where id=#{fid} and status=1
+    </select>
+    <select id="getShareInfoByPid" resultType="com.vpsair.modules.pan.dto.FileDTO">
+        select id,folder_id,real_name,`size`,suffix,owner_name,`type`,remark,update_time from pan_file
+        where folder_id=#{fid} and status=1
+    </select>
+    <select id="checkFileOnly" resultType="java.lang.Integer">
+        select count(*) from pan_file where folder_id=#{folderId} and real_name=#{realName} and status=1
+    </select>
+    <select id="getTotalSize" resultType="java.lang.Long">
+        select SUM(size) from pan_file where owner_id=#{userId} and status=1
+    </select>
+
+
+</mapper>

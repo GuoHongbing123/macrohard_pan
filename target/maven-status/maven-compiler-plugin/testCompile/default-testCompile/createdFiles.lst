@@ -1,0 +1,4 @@
+com\vpsair\service\DynamicDataSourceTestService.class
+com\vpsair\JwtTest.class
+com\vpsair\RedisTest.class
+com\vpsair\DynamicDataSourceTest.class

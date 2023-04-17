@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vpsair.modules.pan.dao.DownloadTokenDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vpsair.modules.pan.entity.DownloadTokenEntity" id="downloadTokenMap">
+        <result property="id" column="id"/>
+        <result property="fileKey" column="file_key"/>
+        <result property="realName" column="real_name"/>
+        <result property="fullPath" column="full_path"/>
+        <result property="token" column="token"/>
+        <result property="expireDate" column="expire_date"/>
+        <result property="creatTime" column="create_time"/>
+
+    </resultMap>
+    <delete id="removeExpireToken">
+        DELETE FROM pan_download_token
+        WHERE expire_date &lt; #{date}
+    </delete>
+    <select id="getByFileKey" resultType="com.vpsair.modules.pan.entity.DownloadTokenEntity">
+        SELECT * FROM pan_download_token
+        WHERE file_key = #{fileKey}
+    </select>
+    <select id="getById" resultType="com.vpsair.modules.pan.entity.DownloadTokenEntity">
+        SELECT * FROM pan_download_token
+        WHERE id = #{id} AND expire_date &gt; #{date}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vpsair.modules.pan.dao.FolderDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vpsair.modules.pan.entity.FolderEntity" id="folderMap">
+        <result property="id" column="id"/>
+        <result property="pid" column="pid"/>
+        <result property="realName" column="real_name"/>
+        <result property="fullPath" column="full_path"/>
+        <result property="sort" column="sort"/>
+        <result property="isEmpty" column="is_empty"/>
+        <result property="ownerId" column="owner_id"/>
+        <result property="ownerName" column="owner_name"/>
+        <result property="ownerType" column="owner_type"/>
+        <result property="share" column="share"/>
+        <result property="shareId" column="share_id"/>
+        <result property="type" column="type"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <update id="renameFolder">
+        update pan_folder set real_name=#{realName} where id=#{fid} and owner_id=#{panUserId} and status=1
+    </update>
+    <update id="moveFolder">
+        update pan_folder set pid=#{pid} where id=#{fid} and owner_id=#{panUserId} and status=1
+    </update>
+    <select id="checkFolderOwner" resultType="java.lang.Integer">
+        select count(*) from pan_folder left join pan_userinfo on pan_folder.owner_id=pan_userinfo.id
+        where pan_userinfo.sys_id=#{sysId} and pan_folder.id=#{folderId}
+    </select>
+    <select id="getPathByPid" resultType="com.vpsair.modules.pan.dto.folder.WhereAmI">
+        select id,pid,real_name from pan_folder where id=#{fid}
+    </select>
+    <select id="findByShareFid" resultType="com.vpsair.modules.pan.dto.folder.FolderDTO">
+        select id,real_name,owner_id,owner_name,`type`,update_time from pan_folder where id=#{fid} and status=1
+    </select>
+    <select id="getShareInfoByPid" resultType="com.vpsair.modules.pan.dto.folder.FolderDTO">
+        select id,pid,real_name,owner_id,owner_name,`type`,update_time from pan_folder
+        where pid=#{fid} and status=1
+    </select>
+    <select id="checkFolderOnly" resultType="java.lang.Integer">
+        select count(*) from pan_folder where pid=#{pid} and real_name=#{realName} and status=1
+    </select>
+</mapper>

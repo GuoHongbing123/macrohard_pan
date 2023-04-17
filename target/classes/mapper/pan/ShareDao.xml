@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vpsair.modules.pan.dao.ShareDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.vpsair.modules.pan.entity.ShareEntity" id="shareMap">
+        <result property="id" column="id"/>
+        <result property="fid" column="fid"/>
+        <result property="type" column="type"/>
+        <result property="shareType" column="share_type"/>
+        <result property="sharePath" column="share_path"/>
+        <result property="realName" column="real_name"/>
+        <result property="code" column="code"/>
+        <result property="ownerId" column="owner_id"/>
+        <result property="ownerName" column="owner_name"/>
+        <result property="expireType" column="expire_type"/>
+        <result property="expireDate" column="expire_date"/>
+        <result property="downloadNum" column="download_num"/>
+        <result property="downloadLimit" column="download_limit"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+</mapper>
